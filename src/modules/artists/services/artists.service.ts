@@ -25,8 +25,8 @@ export class ArtistsService {
   public async getArtistById(id: string): Promise<Artist> {
     const response = await fetch(`${this.artistsApiUrl}/${id}`);
 
-    const foundBand = await response.json();
+    const foundArtist = await response.json();
 
-    return foundBand as Artist;
+    return foundArtist as Artist;
   }
 }

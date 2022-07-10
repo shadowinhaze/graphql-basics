@@ -25,8 +25,8 @@ export class AlbumsService {
   public async getAlbumById(id: string): Promise<Album> {
     const response = await fetch(`${this.albumsApiUrl}/${id}`);
 
-    const foundBand = await response.json();
+    const foundAlbum = await response.json();
 
-    return foundBand as Album;
+    return foundAlbum as Album;
   }
 }
