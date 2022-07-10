@@ -12,10 +12,59 @@ export type Scalars = {
   Float: number;
 };
 
+export type Album = {
+  __typename?: 'Album';
+  artists?: Maybe<Array<Maybe<Artist>>>;
+  bands?: Maybe<Array<Maybe<Band>>>;
+  genres?: Maybe<Array<Maybe<Genre>>>;
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  released?: Maybe<Scalars['Int']>;
+  tracks?: Maybe<Array<Maybe<Track>>>;
+};
+
+export type AllAlbums = {
+  __typename?: 'AllAlbums';
+  items?: Maybe<Array<Maybe<Album>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
+export type AllArtists = {
+  __typename?: 'AllArtists';
+  items?: Maybe<Array<Maybe<Artist>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
+export type AllBands = {
+  __typename?: 'AllBands';
+  items?: Maybe<Array<Maybe<Band>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
 export type AllGenres = {
   __typename?: 'AllGenres';
   items?: Maybe<Array<Maybe<Genre>>>;
   total?: Maybe<Scalars['Int']>;
+};
+
+export type AllTracks = {
+  __typename?: 'AllTracks';
+  items?: Maybe<Array<Maybe<Track>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
+export type Artist = {
+  __typename?: 'Artist';
+  bands?: Maybe<Array<Maybe<Band>>>;
+  birthDate?: Maybe<Scalars['String']>;
+  birthPlace?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  instruments?: Maybe<Array<Maybe<Scalars['String']>>>;
+  middleName?: Maybe<Scalars['String']>;
+  secondName?: Maybe<Scalars['String']>;
 };
 
 export type AuthenticateResponse = {
@@ -64,16 +113,50 @@ export type MutationRegisterArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  album?: Maybe<Album>;
+  albums?: Maybe<AllAlbums>;
+  artist?: Maybe<Artist>;
+  artists?: Maybe<AllArtists>;
   band?: Maybe<Band>;
-  bands?: Maybe<Array<Maybe<Band>>>;
+  bands?: Maybe<AllBands>;
   genre?: Maybe<Genre>;
   genres?: Maybe<AllGenres>;
+  track?: Maybe<Track>;
+  tracks?: Maybe<AllTracks>;
   user: RegisteredUser;
+};
+
+
+export type QueryAlbumArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryAlbumsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryArtistArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryArtistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type QueryBandArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryBandsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -83,6 +166,17 @@ export type QueryGenreArgs = {
 
 
 export type QueryGenresArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryTrackArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryTracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -108,11 +202,24 @@ export type RegisteredUser = {
   password: Scalars['String'];
 };
 
+export type Track = {
+  __typename?: 'Track';
+  album?: Maybe<Album>;
+  artists?: Maybe<Array<Maybe<Artist>>>;
+  bands?: Maybe<Array<Maybe<Band>>>;
+  duration?: Maybe<Scalars['Int']>;
+  genres?: Maybe<Array<Maybe<Genre>>>;
+  id: Scalars['ID'];
+  released?: Maybe<Scalars['Int']>;
+  title: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   email: Scalars['String'];
   firstName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  lastName?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   secondName?: Maybe<Scalars['String']>;
 };

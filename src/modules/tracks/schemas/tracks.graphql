@@ -1,0 +1,20 @@
+type Track {
+  id: ID!
+  title: String!
+  album: Album
+  artists: [Artist]
+  bands: [Band]
+  duration: Int
+  released: Int
+  genres: [Genre]
+}
+
+type AllTracks {
+  items: [Track]
+  total: Int
+}
+
+type Query {
+  tracks(limit: Int, offset: Int): AllTracks
+  track(id: ID!): Track
+}

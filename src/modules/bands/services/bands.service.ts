@@ -19,8 +19,6 @@ export class BandsService {
 
     const { items, total } = await response.json();
 
-    console.log(items);
-
     return { items, total } as const;
   }
 
