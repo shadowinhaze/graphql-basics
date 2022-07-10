@@ -5,7 +5,8 @@
     "target": "es5",
     "allowJs": true,
     "moduleResolution": "node",
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "esModuleInterop": true,
   },
   "include": [
     "./src/index.ts",
