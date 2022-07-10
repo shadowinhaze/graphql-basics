@@ -23,6 +23,16 @@ export type AuthenticateResponse = {
   token: Scalars['String'];
 };
 
+export type Band = {
+  __typename?: 'Band';
+  genres?: Maybe<Array<Maybe<Genre>>>;
+  id: Scalars['ID'];
+  members?: Maybe<Array<Maybe<Member>>>;
+  name?: Maybe<Scalars['String']>;
+  origin?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+};
+
 export type Genre = {
   __typename?: 'Genre';
   _id: Scalars['ID'];
@@ -30,6 +40,16 @@ export type Genre = {
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   year?: Maybe<Scalars['Int']>;
+};
+
+export type Member = {
+  __typename?: 'Member';
+  firstName?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
+  instrument?: Maybe<Scalars['String']>;
+  middleName?: Maybe<Scalars['String']>;
+  secondName?: Maybe<Scalars['String']>;
+  years?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type Mutation = {
@@ -44,8 +64,21 @@ export type MutationRegisterArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  band?: Maybe<Band>;
+  bands?: Maybe<Array<Maybe<Band>>>;
+  genre?: Maybe<Genre>;
   genres?: Maybe<AllGenres>;
   user: RegisteredUser;
+};
+
+
+export type QueryBandArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryGenreArgs = {
+  id: Scalars['ID'];
 };
 
 

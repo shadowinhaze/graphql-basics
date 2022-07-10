@@ -1,4 +1,4 @@
-import { GenresService } from '../services/genres.sevice';
+import { GenresService } from '../services/genres.service';
 
 const genresService = new GenresService();
 
