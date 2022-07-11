@@ -13,6 +13,11 @@ input RegisterUser {
   email: String!
 }
 
+input LoginUser {
+  email: String!
+  password: String!
+}
+
 type RegisteredUser {
   firstName: String!
   lastName: String!
@@ -23,6 +28,7 @@ type RegisteredUser {
 
 type Query {
   user(id: String!): RegisteredUser!
+  jwt(user: LoginUser!): String!
 }
 
 type Mutation {

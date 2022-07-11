@@ -84,11 +84,16 @@ export type Band = {
 
 export type Genre = {
   __typename?: 'Genre';
-  _id: Scalars['ID'];
   country?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   year?: Maybe<Scalars['Int']>;
+};
+
+export type LoginUser = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Member = {
@@ -121,6 +126,7 @@ export type Query = {
   bands?: Maybe<AllBands>;
   genre?: Maybe<Genre>;
   genres?: Maybe<AllGenres>;
+  jwt: Scalars['String'];
   track?: Maybe<Track>;
   tracks?: Maybe<AllTracks>;
   user: RegisteredUser;
@@ -168,6 +174,11 @@ export type QueryGenreArgs = {
 export type QueryGenresArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryJwtArgs = {
+  user: LoginUser;
 };
 
 

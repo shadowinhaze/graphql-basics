@@ -1,4 +1,4 @@
-import { RegisterUser } from '../../../types';
+import { LoginUser, RegisterUser } from '../../../types';
 import { UserService } from '../services/user.service';
 
 const userService = new UserService();
@@ -8,6 +8,10 @@ export default {
     async user(_: unknown, { id }: { id: string }) {
       const foundUser = await userService.getUserById(id);
       return foundUser;
+    },
+    async jwt(_: unknown, { user }: { user: LoginUser }) {
+      const { jwt } = await userService.signIn(user);
+      return jwt;
     },
   },
 
