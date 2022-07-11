@@ -1,32 +1,29 @@
 import 'dotenv/config';
-import fetch from 'cross-fetch';
 
 import { Album } from '../../../types';
+import { GetService } from '../../common/get-service';
+import { GetItems } from '../../common/types';
 
 export class AlbumsService {
-  private albumsApiUrl = process.env.Albums_URL;
+  private albumsApiUrl = process.env.ALBUMS_URL;
+
+  private getItemService = new GetService(this.albumsApiUrl);
 
   public async getAllAlbums(
     _limit: number,
     _offset: number,
-  ): Promise<{ items: Album[]; total: number }> {
-    const limit = String(_limit) || '5';
-    const offset = String(_offset) || '0';
+  ): Promise<GetItems<Album>> {
+    const { items, total } = await this.getItemService.getAllItems<
+      GetItems<Album>
+    >(_limit, _offset);
 
-    const response = await fetch(
-      `${this.albumsApiUrl}?${new URLSearchParams({ limit, offset })}`,
-    );
-
-    const { items, total } = await response.json();
-
-    return { items, total } as const;
+    return {
+      items: this.getItemService.renameKey(items, '_id', 'id'),
+      total,
+    } as const;
   }
 
   public async getAlbumById(id: string): Promise<Album> {
-    const response = await fetch(`${this.albumsApiUrl}/${id}`);
-
-    const foundAlbum = await response.json();
-
-    return foundAlbum as Album;
+    return this.getItemService.getItemById<Album>(id);
   }
 }

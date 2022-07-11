@@ -1,32 +1,29 @@
 import 'dotenv/config';
-import fetch from 'cross-fetch';
 
 import { Track } from '../../../types';
+import { GetService } from '../../common/get-service';
+import { GetItems } from '../../common/types';
 
 export class TracksService {
   private tracksApiUrl = process.env.TRACKS_URL;
 
+  private getItemService = new GetService(this.tracksApiUrl);
+
   public async getAllTracks(
     _limit: number,
     _offset: number,
-  ): Promise<{ items: Track[]; total: number }> {
-    const limit = String(_limit) || '5';
-    const offset = String(_offset) || '0';
+  ): Promise<GetItems<Track>> {
+    const { items, total } = await this.getItemService.getAllItems<
+      GetItems<Track>
+    >(_limit, _offset);
 
-    const response = await fetch(
-      `${this.tracksApiUrl}?${new URLSearchParams({ limit, offset })}`,
-    );
-
-    const { items, total } = await response.json();
-
-    return { items, total } as const;
+    return {
+      items: this.getItemService.renameKey(items, '_id', 'id'),
+      total,
+    } as const;
   }
 
   public async getTrackById(id: string): Promise<Track> {
-    const response = await fetch(`${this.tracksApiUrl}/${id}`);
-
-    const foundBand = await response.json();
-
-    return foundBand as Track;
+    return this.getItemService.getItemById<Track>(id);
   }
 }

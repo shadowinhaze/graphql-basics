@@ -1,32 +1,29 @@
 import 'dotenv/config';
-import fetch from 'cross-fetch';
 
 import { Genre } from '../../../types';
+import { GetService } from '../../common/get-service';
+import { GetItems } from '../../common/types';
 
 export class GenresService {
   private genresApiUrl = process.env.GENRES_URL;
 
+  private getItemService = new GetService(this.genresApiUrl);
+
   public async getAllGenres(
     _limit: number,
     _offset: number,
-  ): Promise<{ items: Genre[]; total: number }> {
-    const limit = String(_limit) || '5';
-    const offset = String(_offset) || '0';
+  ): Promise<GetItems<Genre>> {
+    const { items, total } = await this.getItemService.getAllItems<
+      GetItems<Genre>
+    >(_limit, _offset);
 
-    const response = await fetch(
-      `${this.genresApiUrl}?${new URLSearchParams({ limit, offset })}`,
-    );
-
-    const { items, total } = await response.json();
-
-    return { items, total } as const;
+    return {
+      items: this.getItemService.renameKey(items, '_id', 'id'),
+      total,
+    } as const;
   }
 
   public async getGenreById(id: string): Promise<Genre> {
-    const response = await fetch(`${this.genresApiUrl}/${id}`);
-
-    const foundGenre = await response.json();
-
-    return foundGenre as Genre;
+    return this.getItemService.getItemById<Genre>(id);
   }
 }

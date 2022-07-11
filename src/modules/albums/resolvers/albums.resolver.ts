@@ -1,20 +1,20 @@
 import { AlbumsService } from '../services/albums.service';
 
-const bandsService = new AlbumsService();
+const albumsService = new AlbumsService();
 
 export default {
   Query: {
-    async bands(
+    async albums(
       _: unknown,
       { limit, offset }: { limit?: number; offset?: number },
     ) {
-      const allBands = await bandsService.getAllAlbums(limit, offset);
-      return allBands;
+      const allAlbums = await albumsService.getAllAlbums(limit, offset);
+      return allAlbums;
     },
 
-    async band(_: unknown, { id }: { id: string }) {
-      const bandById = await bandsService.getAlbumById(id);
-      return bandById;
+    async album(_: unknown, { id }: { id: string }) {
+      const albumById = await albumsService.getAlbumById(id);
+      return albumById;
     },
   },
 };

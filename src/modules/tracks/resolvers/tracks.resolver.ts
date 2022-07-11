@@ -1,20 +1,20 @@
 import { TracksService } from '../services/tracks.service';
 
-const bandsService = new TracksService();
+const tracksService = new TracksService();
 
 export default {
   Query: {
-    async bands(
+    async tracks(
       _: unknown,
       { limit, offset }: { limit?: number; offset?: number },
     ) {
-      const allBands = await bandsService.getAllTracks(limit, offset);
-      return allBands;
+      const allTracks = await tracksService.getAllTracks(limit, offset);
+      return allTracks;
     },
 
-    async band(_: unknown, { id }: { id: string }) {
-      const bandById = await bandsService.getTrackById(id);
-      return bandById;
+    async track(_: unknown, { id }: { id: string }) {
+      const trackById = await tracksService.getTrackById(id);
+      return trackById;
     },
   },
 };
