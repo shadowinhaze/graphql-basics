@@ -18,7 +18,8 @@ export default {
   Mutation: {
     async register(_: unknown, { user }: { user: RegisterUser }) {
       const newUser = await userService.register(user);
-      return newUser;
+      // eslint-disable-next-line no-underscore-dangle
+      return { ...newUser, id: newUser._id, secondName: newUser.lastName };
     },
   },
 };
